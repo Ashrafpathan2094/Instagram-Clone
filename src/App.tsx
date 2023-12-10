@@ -1,9 +1,13 @@
-import { Button } from "@chakra-ui/react";
-
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage/Homepage";
+import Authpage from "./pages/AuthPage/Authpage";
 function App() {
   return (
     <>
-      <Button>asdsa</Button>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<Authpage />} />
+      </Routes>
     </>
   );
 }
