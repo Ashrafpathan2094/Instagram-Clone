@@ -20,7 +20,6 @@ const AuthFrom = () => {
   });
 
   const handleAuth = () => {
-    console.log("inputs", inputs);
     if (!inputs.email || inputs.password || inputs.confirmPassword) {
       alert("please fill all the details");
       return;
