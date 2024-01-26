@@ -15,9 +15,10 @@ import {
 } from "../../assets/constant";
 
 interface PostFooterProps {
-  username: string;
+  username?: string;
+  isProfilePage?: boolean;
 }
-const PostFooter = ({ username }: PostFooterProps) => {
+const PostFooter = ({ username, isProfilePage = false }: PostFooterProps) => {
   const [liked, setLiked] = useState(false);
   const [totalLikes, setTotalLikes] = useState(1000);
 
@@ -31,7 +32,7 @@ const PostFooter = ({ username }: PostFooterProps) => {
     }
   };
   return (
-    <Box mb={10}>
+    <Box mb={10} marginTop={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
         <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
           {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
@@ -42,17 +43,21 @@ const PostFooter = ({ username }: PostFooterProps) => {
       </Flex>
 
       <Text fontWeight={600} fontSize={"sm"}>
-        {totalLikes} liked
+        {totalLikes} likes
       </Text>
-      <Text fontWeight={600} fontSize={"sm"}>
-        {username} {" "}
-        <Text as={"span"} fontWeight={400}>
-          Feeling Good
-        </Text>
-      </Text>
-      <Text color={"gray"} fontSize={"sm"}>
-        View all 1,000 comments
-      </Text>
+      {!isProfilePage && (
+        <>
+          <Text fontWeight={600} fontSize={"sm"}>
+            {username}{" "}
+            <Text as={"span"} fontWeight={400}>
+              Feeling Good
+            </Text>
+          </Text>
+          <Text color={"gray"} fontSize={"sm"}>
+            View all 1,000 comments
+          </Text>
+        </>
+      )}
 
       <Flex
         alignItems={"center"}

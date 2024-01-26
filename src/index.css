@@ -1,0 +1,16 @@
+::-webkite-scrollbar {
+  width: 10px;
+}
+
+::-webkite-scrollbar-track {
+  background: #1e1e24;
+}
+
+
+::-webkite-scrollbar-thumb {
+    background: #3f3f40;
+  }
+
+  ::-webkite-scrollbar-thumb:hover {
+    background: #555;
+  }
