@@ -50,6 +50,7 @@ const useSignupWithEmailAndPassword = () => {
         localStorage.setItem("user-info", JSON.stringify(userDoc))
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log('error', error)
       showToast("Error", error?.message, 'error')
