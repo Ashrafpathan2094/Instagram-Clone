@@ -20,7 +20,8 @@ const useSignupWithEmailAndPassword = () => {
   ] = useCreateUserWithEmailAndPassword(auth);
 
   const showToast = useShowToast()
-  const loginUser = useAuthStore(state => state?.login)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const loginUser = useAuthStore((state: any) => state.login)
   // const logoutUser = useAuthStore(state => state?.logout)
 
 
