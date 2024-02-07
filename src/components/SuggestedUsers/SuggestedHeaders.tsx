@@ -7,6 +7,7 @@ const SuggestedHeaders = () => {
   const { handleLogout, isLoggingOut } = useLogout();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const authUser = useAuthStore((state: any) => state.user);
+  if (!authUser) return null;
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
