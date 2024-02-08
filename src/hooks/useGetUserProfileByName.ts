@@ -11,7 +11,6 @@ const useGetUserProfileByName = ({ userName }: ProfileByNameType) => {
   const [isLoading, setIsLoading] = useState(true);
   const showToast = useShowToast();
   const { userProfile, setUserProfile } = useUserProfileStore();
-  console.log("userProfile", userProfile);
   useEffect(() => {
     const getUserProfile = async () => {
       try {
