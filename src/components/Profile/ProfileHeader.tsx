@@ -13,6 +13,7 @@ import EditProfile from "./EditProfile";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
+  console.log("🚀 ~ ProfileHeader ~ userProfile:", userProfile);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const authUser = useAuthStore((state: any) => state.user);
@@ -33,7 +34,7 @@ const ProfileHeader = () => {
         alignSelf={"flex-start"}
         mx={"auto"}
       >
-        <Avatar name={userProfile?.userName} src={userProfile?.profilePicUrl} />
+        <Avatar name={userProfile?.userName} src={userProfile?.profilePicURL} />
       </AvatarGroup>
       <VStack alignItems={"start"} gap={2} mx={"auto"} flex={1}>
         <Flex
