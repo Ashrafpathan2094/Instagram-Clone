@@ -10,13 +10,16 @@ import {
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
-  console.log("🚀 ~ ProfileHeader ~ userProfile:", userProfile);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const authUser = useAuthStore((state: any) => state.user);
+  const { isUpdating, isFollowing, handleFollowUser } = useFollowUser(
+    userProfile.uid
+  );
+
   const visitingOwnProfileAndAuth =
     authUser && authUser.userName === userProfile.userName;
   const visitingOtherProfileAndAuth =
@@ -68,8 +71,10 @@ const ProfileHeader = () => {
                 color={"white"}
                 _hover={{ bg: "blue.600" }}
                 size={{ base: "xs", md: "sm" }}
+                onClick={handleFollowUser}
+                isLoading={isUpdating}
               >
-                Follow
+                {isFollowing ? "unFollow" : "Follow"}
               </Button>
             </Flex>
           )}
