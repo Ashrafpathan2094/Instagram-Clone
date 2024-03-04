@@ -10,19 +10,8 @@ import {
   SearchLogo,
 } from "../../assets/constant";
 import useLogout from "../../hooks/useLogout";
+import SidebarItems from "./SidebarItems";
 const Sidebar = () => {
-  const sidebarItems = [
-    { icon: <AiFillHome size={25} />, text: "Home", link: "/" },
-    { icon: <SearchLogo />, text: "Search" },
-    { icon: <NotificationsLogo />, text: "Notifications" },
-    { icon: <CreatePostLogo />, text: "Create" },
-    {
-      icon: <Avatar size={"sm"} name="Ashraf Khan" src="/profilepic.png" />,
-      text: "Profile",
-      link: "/asaprogrammer",
-    },
-  ];
-
   const { handleLogout, isLoggingOut } = useLogout();
   return (
     <Box
@@ -58,33 +47,7 @@ const Sidebar = () => {
           <InstagramMobileLogo />
         </Link>
         <Flex direction={"column"} gap={5} cursor={"pointer"}>
-          {sidebarItems.map((items, index) => (
-            <Tooltip
-              key={index}
-              hasArrow
-              label={items.text}
-              placement="right"
-              ml={1}
-              openDelay={500}
-              display={{ base: "block", md: "none" }}
-            >
-              <Link
-                display={"flex"}
-                to={items?.link || ""}
-                as={RouterLink}
-                alignItems={"center"}
-                gap={4}
-                _hover={{ bg: "whiteAlpha.400" }}
-                borderRadius={6}
-                p={2}
-                w={{ base: "full", md: "full" }}
-                justifyContent={{ base: "center", md: "flex-start" }}
-              >
-                {items.icon}
-                <Box display={{ base: "none", md: "block" }}>{items.text}</Box>
-              </Link>
-            </Tooltip>
-          ))}
+          <SidebarItems />
         </Flex>
         <Tooltip
           hasArrow
