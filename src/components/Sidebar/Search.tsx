@@ -9,18 +9,20 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalHeader,
   ModalOverlay,
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRef } from "react";
 import { SearchLogo } from "../../assets/constant";
 import useSearchUser from "../../hooks/useSearchUser";
-import { useRef } from "react";
+import UsersSuggested from "../SuggestedUsers/UsersSuggested";
 
 const Search = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { isLoading, getUserProfile, user } = useSearchUser();
+  const { isLoading, getUserProfile, user, setUser } = useSearchUser();
 
   const searchRef = useRef(null);
   const handleSearchUser = async (e) => {
@@ -55,6 +57,7 @@ const Search = () => {
       <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInLeft">
         <ModalOverlay />
         <ModalContent border={"1px solid gray"} maxW={"400px"} bg={"black"}>
+          <ModalHeader>Search User</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <form onSubmit={handleSearchUser}>
@@ -74,6 +77,7 @@ const Search = () => {
                 </Button>
               </Flex>
             </form>
+            {user && <UsersSuggested userData={user} setUser={setUser} />}
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -1,6 +1,5 @@
 import { Box, Flex, Link, Text, VStack } from "@chakra-ui/react";
 import SuggestedHeaders from "./SuggestedHeaders";
-import UsersSuggested from "./UsersSuggested";
 
 const SuggestedUsers = () => {
   return (
@@ -19,9 +18,9 @@ const SuggestedUsers = () => {
           See All
         </Text>
       </Flex>
-      <UsersSuggested name="aashu.exe" followers={1243} avatar="img1.png" />
+      {/* <UsersSuggested name="aashu.exe" followers={1243} avatar="img1.png" />
       <UsersSuggested name="Stw_stark" followers={1913} avatar="img2.png" />
-      <UsersSuggested name="Bread_siar" followers={1813} avatar="img3.png" />
+      <UsersSuggested name="Bread_siar" followers={1813} avatar="img3.png" /> */}
 
       <Box fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
         © 2023 Built By{" "}
