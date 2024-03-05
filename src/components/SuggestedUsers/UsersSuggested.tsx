@@ -9,7 +9,7 @@ interface UsersSuggestedProps {
     profilePicURL: string;
     uid: string;
   };
-  setUser: (userData: any) => void;
+  setUser?: (userData: any) => void;
 }
 const UsersSuggested = ({ userData, setUser }: UsersSuggestedProps) => {
   const authUser = useAuthStore((state) => state.user);
