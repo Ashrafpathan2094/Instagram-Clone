@@ -21,9 +21,9 @@ import { Comment } from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
 
 interface PostProps {
-  img: string;
+  post: any;
 }
-const Post = ({ img }: PostProps) => {
+const Post = ({ post }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -65,7 +65,13 @@ const Post = ({ img }: PostProps) => {
             </Flex>
           </Flex>
         </Flex>
-        <Image src={img} alt="post" w={"100%"} h={"100%"} objectFit={"cover"} />
+        <Image
+          src={post.imageURL}
+          alt="post"
+          w={"100%"}
+          h={"100%"}
+          objectFit={"cover"}
+        />
       </GridItem>
       <Modal
         isOpen={isOpen}
@@ -89,7 +95,7 @@ const Post = ({ img }: PostProps) => {
                 borderColor={"whiteAlpha.300"}
                 flex={1.5}
               >
-                <Image src={img} alt="profile post" />
+                <Image src={post.imageURL} alt="profile post" />
               </Box>
               <Flex
                 flex={1}
