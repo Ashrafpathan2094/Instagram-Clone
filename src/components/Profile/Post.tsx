@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Flex,
   GridItem,
@@ -19,12 +20,18 @@ import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Comment } from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
+import useUserProfileStore from "../../store/userProfileStore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import useAuthStore from "../../store/authStore";
 
 interface PostProps {
   post: any;
 }
-const Post = ({ post }: any) => {
+const Post = ({ post }: PostProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const userProfile = useUserProfileStore((state: any) => state.userProfile);
+  const authUser = useAuthStore((state: any) => state.user);
 
   return (
     <>
@@ -54,13 +61,13 @@ const Post = ({ post }: any) => {
             <Flex>
               <AiFillHeart size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                7
+                {post?.likes?.length}
               </Text>
             </Flex>
             <Flex>
               <FaComment size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                7
+                {post?.comments?.length}
               </Text>
             </Flex>
           </Flex>
@@ -84,19 +91,23 @@ const Post = ({ post }: any) => {
           <ModalCloseButton />
           <ModalBody bg={"black"} pb={5}>
             <Flex
+              maxH={"90vh"}
+              minH={"50vh"}
               gap={"4"}
               w={{ base: "90%", sm: "70%", md: "full" }}
               mx={"auto"}
             >
-              <Box
+              <Flex
                 borderRadius={4}
                 overflow={"hidden"}
                 border={"1px solid"}
                 borderColor={"whiteAlpha.300"}
                 flex={1.5}
+                justifyContent={"center"}
+                alignItems={"center"}
               >
                 <Image src={post.imageURL} alt="profile post" />
-              </Box>
+              </Flex>
               <Flex
                 flex={1}
                 flexDir={"column"}
@@ -106,21 +117,25 @@ const Post = ({ post }: any) => {
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Flex alignItems={"center"} gap={4}>
                     <Avatar
-                      src="/profilepic.png"
+                      src={userProfile.profilePicURL}
                       size={"sm"}
                       name="profle-pic"
                     />
                     <Text fontWeight={"bold"} fontSize={12}>
-                      array_ashraf
+                      {userProfile.userName}
                     </Text>
                   </Flex>
-                  <Box
-                    _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                    borderRadius={4}
-                    p={1}
-                  >
-                    <MdDelete size={20} cursor={"pointer"} />
-                  </Box>
+                  {authUser?.uid === userProfile?.uid && (
+                    <Button
+                      size={"sm"}
+                      bg={"transparent"}
+                      _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                      borderRadius={4}
+                      p={1}
+                    >
+                      <MdDelete size={20} cursor={"pointer"} />
+                    </Button>
+                  )}
                 </Flex>
                 <Divider my={4} bg={"gray.800"} />
                 <VStack
@@ -128,80 +143,7 @@ const Post = ({ post }: any) => {
                   alignItems={"start"}
                   maxH={"350px"}
                   overflowY={"auto"}
-                >
-                  <Comment
-                    createdAt="1d ago"
-                    username="array_ashraf"
-                    profilePic="/profilepic.png"
-                    text={"Dummy images from unsplash"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="ashraf"
-                    profilePic="/img1.png"
-                    text={"Nice Pic dear"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="aashu.exe"
-                    profilePic="/img2.png"
-                    text={"Elvish bhaii"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="array_ashraf"
-                    profilePic="/profilepic.png"
-                    text={"Dummy images from unsplash"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="ashraf"
-                    profilePic="/img1.png"
-                    text={"Nice Pic dear"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="aashu.exe"
-                    profilePic="/img2.png"
-                    text={"Elvish bhaii"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="array_ashraf"
-                    profilePic="/profilepic.png"
-                    text={"Dummy images from unsplash"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="ashraf"
-                    profilePic="/img1.png"
-                    text={"Nice Pic dear"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="aashu.exe"
-                    profilePic="/img2.png"
-                    text={"Elvish bhaii"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="array_ashraf"
-                    profilePic="/profilepic.png"
-                    text={"Dummy images from unsplash"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="ashraf"
-                    profilePic="/img1.png"
-                    text={"Nice Pic dear"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="aashu.exe"
-                    profilePic="/img2.png"
-                    text={"Elvish bhaii"}
-                  />
-                </VStack>
+                ></VStack>
                 <Divider my={4} bg={"gray.800"} />
                 <PostFooter isProfilePage={true} />
               </Flex>
