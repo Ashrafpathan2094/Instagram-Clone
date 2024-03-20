@@ -3,6 +3,13 @@ import { create } from "zustand";
 const useUserProfileStore = create((set) => ({
   userProfile: null,
   setUserProfile: (userProfile) => set({ userProfile }),
+  deletePost: (postId) =>
+    set((state: any) => ({
+      userProfile: {
+        ...state.userProfile,
+        posts: state.userProfile.posts.filter((id) => id !== postId),
+      },
+    })),
   // this is used to update the number of posts in the profile page
   addPost: (post) =>
     set((state) => ({
