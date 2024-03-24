@@ -1,16 +1,16 @@
-import { useState } from "react";
-import useAuthStore from "../store/authStore";
-import useShowToast from "./useShowToast";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { firestore, storage } from "../firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useState } from "react";
+import { firestore, storage } from "../firebase/firebase";
+import useAuthStore from "../store/authStore";
 import useUserProfileStore from "../store/userProfileStore";
+import useShowToast from "./useShowToast";
 
 const useEditProfile = () => {
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const authUser = useAuthStore((state) => state.user);
-  const setAuthUser = useAuthStore((state) => state.setUser);
+  const authUser = useAuthStore((state: any) => state.user);
+  const setAuthUser = useAuthStore((state: any) => state.setUser);
   const setUserProfile = useUserProfileStore((state) => state.setUserProfile);
 
   const showToast = useShowToast();

@@ -12,7 +12,7 @@ interface UsersSuggestedProps {
   setUser?: (userData: any) => void;
 }
 const UsersSuggested = ({ userData, setUser }: UsersSuggestedProps) => {
-  const authUser = useAuthStore((state) => state.user);
+  const authUser = useAuthStore((state: any) => state.user);
   const { handleFollowUser, isFollowing, isUpdating } = useFollowUser(
     userData.uid
   );

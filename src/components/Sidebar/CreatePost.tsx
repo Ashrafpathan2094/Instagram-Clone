@@ -23,17 +23,17 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useRef, useState } from "react";
 import { BsFillImageFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { CreatePostLogo } from "../../assets/constant";
+import { firestore, storage } from "../../firebase/firebase";
 import usePreviewImg from "../../hooks/usePreviewImg";
 import useShowToast from "../../hooks/useShowToast";
 import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
-import { firestore, storage } from "../../firebase/firebase";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const CreatePost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -143,10 +143,10 @@ export default CreatePost;
 function useCreatePost() {
   const showToast = useShowToast();
   const [isLoading, setIsLoading] = useState(false);
-  const authUser = useAuthStore((state) => state.user);
-  const createPost = usePostStore((state) => state.createPost);
-  const addPost = useUserProfileStore((state) => state.addPost);
-  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const authUser = useAuthStore((state: any) => state.user);
+  const createPost = usePostStore((state: any) => state.createPost);
+  const addPost = useUserProfileStore((state: any) => state.addPost);
+  const userProfile = useUserProfileStore((state: any) => state.userProfile);
 
   const { pathname } = useLocation();
 
