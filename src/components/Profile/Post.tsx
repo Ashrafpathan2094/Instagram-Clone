@@ -69,7 +69,7 @@ const Post = ({ post }: PostProps) => {
       setIsLoading(false);
     }
   };
-    return (
+  return (
     <>
       <GridItem
         cursor={"pointer"}
@@ -183,13 +183,7 @@ const Post = ({ post }: PostProps) => {
                   overflowY={"auto"}
                 >
                   {post.comments.map((comment) => (
-                    <Comment
-                      key={comment?.id}
-                      createdAt={comment?.createdAt}
-                      profilePic={""}
-                      text={comment?.comment}
-                      username={"asds"}
-                    />
+                    <Comment key={comment?.id} comment={comment} />
                   ))}
                 </VStack>
                 <Divider my={4} bg={"gray.800"} />
