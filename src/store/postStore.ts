@@ -15,5 +15,17 @@ const usePostStore = create<PostStore>((set) => ({
       posts: state.posts.filter((post) => post.id !== id),
     })),
   setPosts: (posts) => set({ posts }),
+  addComment: (postId, comment) =>
+    set((state: any) => ({
+      posts: state.posts.map((post) => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            comments: [comment, ...post.comments],
+          };
+        }
+        return post;
+      }),
+    })),
 }));
 export default usePostStore;

@@ -26,6 +26,7 @@ import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import PostFooter from "../FeedPosts/PostFooter";
+import { Comment } from "../Comment/Comment";
 
 interface PostProps {
   post: any;
@@ -35,7 +36,7 @@ const Post = ({ post }: PostProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const deletePost = usePostStore((state: any) => state.deletePost);
-  const deletePostFromProfile = useUserProfileStore(
+  const decrementPostCount = useUserProfileStore(
     (state: any) => state.deletePost
   );
 
@@ -60,7 +61,7 @@ const Post = ({ post }: PostProps) => {
         posts: arrayRemove(post.id),
       });
       deletePost(post.id);
-      deletePostFromProfile(post.id);
+      decrementPostCount(post.id);
       showToast("Success", "Post Deleted SuccessFully!", "success");
     } catch (error) {
       showToast("Error", error?.message, "error");
@@ -68,7 +69,7 @@ const Post = ({ post }: PostProps) => {
       setIsLoading(false);
     }
   };
-  return (
+    return (
     <>
       <GridItem
         cursor={"pointer"}
@@ -180,9 +181,19 @@ const Post = ({ post }: PostProps) => {
                   alignItems={"start"}
                   maxH={"350px"}
                   overflowY={"auto"}
-                ></VStack>
+                >
+                  {post.comments.map((comment) => (
+                    <Comment
+                      key={comment?.id}
+                      createdAt={comment?.createdAt}
+                      profilePic={""}
+                      text={comment?.comment}
+                      username={"asds"}
+                    />
+                  ))}
+                </VStack>
                 <Divider my={4} bg={"gray.800"} />
-                <PostFooter isProfilePage={true} />
+                <PostFooter post={post} isProfilePage={true} />
               </Flex>
             </Flex>
           </ModalBody>
