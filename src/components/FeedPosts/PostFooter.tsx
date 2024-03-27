@@ -7,7 +7,7 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   CommentLogo,
   NotificationsLogo,
@@ -29,6 +29,8 @@ const PostFooter = ({
   const [liked, setLiked] = useState(false);
   const [totalLikes, setTotalLikes] = useState(1000);
   const [comment, setComment] = useState("");
+
+  const commentRef = useRef(null);
 
   const { isCommenting, handlePostComment } = usePostComment();
   const authUser = useAuthStore((state: any) => state.user);
@@ -54,7 +56,11 @@ const PostFooter = ({
         <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
           {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
-        <Box cursor={"pointer"} fontSize={18}>
+        <Box
+          cursor={"pointer"}
+          fontSize={18}
+          onClick={() => commentRef.current.focus()}
+        >
           <CommentLogo />
         </Box>
       </Flex>
@@ -90,6 +96,7 @@ const PostFooter = ({
               fontSize={14}
               onChange={(e) => setComment(e.target.value)}
               value={comment}
+              ref={commentRef}
             />
             <InputRightElement>
               <Button

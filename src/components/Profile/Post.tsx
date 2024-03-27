@@ -27,6 +27,7 @@ import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import PostFooter from "../FeedPosts/PostFooter";
 import { Comment } from "../Comment/Comment";
+import Caption from "../PostCaption/PostCaption";
 
 interface PostProps {
   post: any;
@@ -182,6 +183,7 @@ const Post = ({ post }: PostProps) => {
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
+                  {post?.caption && <Caption post={post} />}
                   {post.comments.map((comment) => (
                     <Comment key={comment?.id} comment={comment} />
                   ))}
