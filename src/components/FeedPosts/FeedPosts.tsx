@@ -48,7 +48,7 @@ const FeedPosts: React.FC<FeedPostsProps> = ({ img, username, avatar }) => {
             <Image src={img} alt={username} />
           </Box>
           {/* <Post /> */}
-          <PostFooter username={username} />
+          <PostFooter username={username} post={{}} />
         </>
       )}
     </Container>
