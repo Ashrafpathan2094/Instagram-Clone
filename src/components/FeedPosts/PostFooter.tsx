@@ -15,6 +15,7 @@ import {
 } from "../../assets/constant";
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
+import useLikePost from "../../hooks/useLikePost";
 
 interface PostFooterProps {
   username?: string;
@@ -26,24 +27,13 @@ const PostFooter = ({
   username,
   isProfilePage = false,
 }: PostFooterProps) => {
-  const [liked, setLiked] = useState(false);
-  const [totalLikes, setTotalLikes] = useState(1000);
   const [comment, setComment] = useState("");
 
   const commentRef = useRef(null);
 
   const { isCommenting, handlePostComment } = usePostComment();
   const authUser = useAuthStore((state: any) => state.user);
-
-  const handleLike = () => {
-    if (liked) {
-      setLiked(false);
-      setTotalLikes(totalLikes - 1);
-    } else {
-      setLiked(true);
-      setTotalLikes(totalLikes + 1);
-    }
-  };
+  const { handleLikePost, isLiked, isUpdating, likes } = useLikePost(post);
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
@@ -53,8 +43,8 @@ const PostFooter = ({
   return (
     <Box mb={10} marginTop={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
-        <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
-          {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
+        <Box onClick={handleLikePost} cursor={"pointer"} fontSize={18}>
+          {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
         <Box
           cursor={"pointer"}
@@ -66,7 +56,7 @@ const PostFooter = ({
       </Flex>
 
       <Text fontWeight={600} fontSize={"sm"}>
-        {totalLikes} likes
+        {likes} likes
       </Text>
       {!isProfilePage && (
         <>
