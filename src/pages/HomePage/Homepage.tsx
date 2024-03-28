@@ -13,17 +13,6 @@ const HomePage = () => {
             username="Array_Ashraf"
             avatar="/img1.png"
           />
-          <FeedPosts img="/img2.png" username="aashu.exe" avatar="/img2.png" />
-          <FeedPosts
-            img="/img3.png"
-            username="Stw_Stark"
-            avatar="/img3.png"
-          />{" "}
-          <FeedPosts
-            img="/img4.png"
-            username="Buss_Kar_Ashraf"
-            avatar="/img4.png"
-          />
         </Box>
         <Box
           flex={3}
