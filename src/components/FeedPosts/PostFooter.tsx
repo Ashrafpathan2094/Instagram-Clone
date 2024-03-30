@@ -17,7 +17,7 @@ import {
 import useLikePost from "../../hooks/useLikePost";
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
-import { timeAgo } from "../../utils/timeAgo";
+import { timeAgo } from "../../Utils/getTimeAgo";
 import CommentsModal from "../Modals/CommentsModal";
 
 interface PostFooterProps {

@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import useFollowUser from "../../hooks/useFollowUser";
-import { timeAgo } from "../../utils/timeAgo";
+import { timeAgo } from "../../Utils/getTimeAgo";
 
 interface PostHeaderProps {
   post: any;
