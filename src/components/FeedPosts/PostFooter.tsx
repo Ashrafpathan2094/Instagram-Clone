@@ -73,7 +73,7 @@ const PostFooter = ({
       {!isProfilePage && (
         <>
           <Text fontWeight={600} fontSize={"sm"}>
-            {createrProfile?.userName}
+            {createrProfile?.userName}{" "}
             <Text as={"span"} fontWeight={400}>
               {post?.caption}
             </Text>
