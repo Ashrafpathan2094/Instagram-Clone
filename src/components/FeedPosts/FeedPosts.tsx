@@ -41,7 +41,7 @@ const FeedPosts: React.FC<FeedPostsProps> = ({ img, username, avatar }) => {
 
       {!isLoading &&
         posts.length > 0 &&
-        posts.map((post: any) => <Post post={post} />)}
+        posts.map((post: any, index: any) => <Post post={post} key={index} />)}
 
       {!isLoading && posts?.length === 0 && (
         <Text fontFamily={"md"} color={"white"}>

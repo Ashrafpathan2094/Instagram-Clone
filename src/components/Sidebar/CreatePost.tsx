@@ -37,13 +37,10 @@ import useUserProfileStore from "../../store/userProfileStore";
 
 const CreatePost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [caption, setCaption] = useState("");
-  const showToast = useShowToast();
   const imageRef = useRef(null);
-
   const { handleImageChange, selectedFile, setSelectedFile } = usePreviewImg();
-
+  const showToast = useShowToast();
   const { isLoading, handleCreatePost } = useCreatePost();
 
   const handlePostCreation = async () => {
@@ -56,6 +53,7 @@ const CreatePost = () => {
       showToast("Error", error.message, "error");
     }
   };
+
   return (
     <>
       <Tooltip
@@ -80,6 +78,7 @@ const CreatePost = () => {
           <Box display={{ base: "none", md: "block" }}>Create</Box>
         </Flex>
       </Tooltip>
+
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
 
@@ -116,12 +115,14 @@ const CreatePost = () => {
                 position={"relative"}
                 justifyContent={"center"}
               >
-                <Image src={selectedFile} alt="selected img" />
+                <Image src={selectedFile} alt="Selected img" />
                 <CloseButton
                   position={"absolute"}
                   top={2}
                   right={2}
-                  onClick={() => setSelectedFile(null)}
+                  onClick={() => {
+                    setSelectedFile(null);
+                  }}
                 />
               </Flex>
             )}
@@ -144,17 +145,14 @@ function useCreatePost() {
   const showToast = useShowToast();
   const [isLoading, setIsLoading] = useState(false);
   const authUser = useAuthStore((state: any) => state.user);
-  const createPost = usePostStore((state: any) => state.createPost);
-  const addPost = useUserProfileStore((state: any) => state.addPost);
-  const userProfile = useUserProfileStore((state: any) => state.userProfile);
-
+  const createPost = usePostStore((state) => state.createPost);
+  const addPost = useUserProfileStore((state) => state.addPost);
+  const userProfile = useUserProfileStore((state) => state.userProfile);
   const { pathname } = useLocation();
 
   const handleCreatePost = async (selectedFile, caption) => {
     if (isLoading) return;
-    if (!selectedFile) {
-      throw new Error("Please Select an Image");
-    }
+    if (!selectedFile) throw new Error("Please select an image");
     setIsLoading(true);
     const newPost = {
       caption: caption,
@@ -164,6 +162,7 @@ function useCreatePost() {
       createdBy: authUser.uid,
       imageURL: "",
     };
+
     try {
       const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
       const userDocRef = doc(firestore, "users", authUser.uid);
@@ -177,15 +176,13 @@ function useCreatePost() {
 
       newPost.imageURL = downloadURL;
 
-      if (userProfile.uid === authUser.uid) {
+      if (userProfile.uid === authUser.uid)
         createPost({ ...newPost, id: postDocRef.id });
-      }
 
-      if (pathname !== "/" && userProfile.uid === authUser.uid) {
+      if (pathname !== "/" && userProfile.uid === authUser.uid)
         addPost({ ...newPost, id: postDocRef.id });
-      }
 
-      showToast("Success", "Post Created Successfully", "success");
+      showToast("Success", "Post created successfully", "success");
     } catch (error) {
       showToast("Error", error.message, "error");
     } finally {

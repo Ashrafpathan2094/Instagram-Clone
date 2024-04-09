@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, startAt, endAt } from "firebase/firestore";
 import { useState } from "react";
 import { firestore } from "../firebase/firebase";
 import useShowToast from "./useShowToast";
@@ -8,13 +8,15 @@ const useSearchUser = () => {
   const [user, setUser] = useState(null);
   const showToast = useShowToast();
 
-  const getUserProfile = async (userName) => {
+  const getUserProfile = async (searchString) => {
     try {
       setIsLoading(true);
       setUser(null);
+
       const q = query(
         collection(firestore, "users"),
-        where("userName", "==", userName)
+        where("userName", ">=", searchString),
+        where("userName", "<=", searchString + "\uf8ff")
       );
 
       const querySnapshot = await getDocs(q);
@@ -32,6 +34,7 @@ const useSearchUser = () => {
       setIsLoading(false);
     }
   };
+  
   return { isLoading, getUserProfile, user, setUser };
 };
 
